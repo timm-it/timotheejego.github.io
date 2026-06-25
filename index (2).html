@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timothée JEGO — Technicien IT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0b0d12;
+      --bg2:      #12151c;
+      --bg3:      #181c26;
+      --bg4:      #1e2230;
+      --border:   rgba(255,255,255,0.07);
+      --border2:  rgba(255,255,255,0.13);
+      --text:     #dde2f0;
+      --muted:    #7a8099;
+      --subtle:   #4a5068;
+      --blue:     #5b8ef0;
+      --blue-dim: rgba(91,142,240,0.12);
+      --blue-glow:rgba(91,142,240,0.25);
+      --teal:     #3ecfaa;
+      --font:     'Sora', sans-serif;
+      --mono:     'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 64px;
+      background: rgba(11,13,18,0.80);
+      backdrop-filter: blur(16px) saturate(1.4);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 13px; font-weight: 500;
+      color: var(--blue);
+      letter-spacing: 0.04em;
+    }
+    .nav-links { display: flex; gap: 2.25rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 13px; font-weight: 400;
+      letter-spacing: 0.02em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 920px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 7rem 0; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 64px;
+      position: relative; overflow: hidden;
+    }
+
+    /* Background grid decoration */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(91,142,240,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(91,142,240,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    /* Soft accent orb */
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      top: -100px; right: -150px;
+      background: radial-gradient(circle, rgba(91,142,240,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(62,207,170,0.25);
+      background: rgba(62,207,170,0.06);
+      font-size: 12px; font-weight: 500;
+      color: var(--teal);
+      letter-spacing: 0.04em;
+      margin-bottom: 2rem;
+    }
+    .pulse {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:.4; transform:scale(.8); }
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      color: #eef1ff;
+    }
+    h1 .name { color: var(--blue); }
+    h1 .role {
+      display: block;
+      font-weight: 300;
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      color: var(--muted);
+      letter-spacing: -0.01em;
+      margin-top: 0.3rem;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem; font-weight: 300;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.85;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-size: 14px; font-weight: 500;
+      font-family: var(--font);
+      text-decoration: none; cursor: pointer;
+      transition: all .2s; border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #4a7de0; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border2);
+      color: var(--muted);
+    }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* Hero stats */
+    .hero-stats {
+      display: flex; gap: 2.5rem;
+      margin-top: 3.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-num {
+      font-size: 1.75rem; font-weight: 700;
+      color: #eef1ff; letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .stat-num span { color: var(--blue); }
+    .stat-label {
+      font-size: 12px; color: var(--muted);
+      margin-top: 4px; font-weight: 400;
+    }
+
+    /* ── SECTION HEADER ── */
+    .sec-head { margin-bottom: 3rem; }
+    .sec-eye {
+      font-family: var(--mono);
+      font-size: 11px; font-weight: 500;
+      color: var(--blue);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sec-eye::after {
+      content: '';
+      flex: 0 0 32px; height: 1px;
+      background: var(--blue); opacity: .4;
+    }
+    h2 {
+      font-size: 2rem; font-weight: 700;
+      letter-spacing: -0.025em;
+      color: #eef1ff;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .skill-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.4rem 1.5rem;
+      transition: border-color .2s, transform .2s;
+      position: relative; overflow: hidden;
+    }
+    .skill-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--blue), transparent);
+      opacity: 0; transition: opacity .2s;
+    }
+    .skill-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .skill-card:hover::before { opacity: 1; }
+
+    .skill-icon {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      background: var(--blue-dim);
+      border: 1px solid rgba(91,142,240,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; margin-bottom: 1rem;
+    }
+    .skill-card h3 {
+      font-size: 13px; font-weight: 600;
+      color: #eef1ff; margin-bottom: 0.9rem;
+      letter-spacing: 0.01em;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 10.5px; font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 8px; bottom: 0;
+      width: 1px; background: var(--border);
+    }
+    .tl-item {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 3rem;
+    }
+    .tl-dot {
+      position: absolute; left: -5px; top: 6px;
+      width: 11px; height: 11px; border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--blue);
+    }
+    .tl-dot.current { background: var(--blue); }
+
+    .tl-meta {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 0.35rem;
+    }
+    .tl-date {
+      font-family: var(--mono);
+      font-size: 11px; color: var(--subtle);
+      letter-spacing: 0.05em;
+    }
+    .tl-badge {
+      font-size: 10px; font-weight: 600;
+      padding: 2px 8px; border-radius: 4px;
+      background: rgba(91,142,240,0.12);
+      border: 1px solid rgba(91,142,240,0.2);
+      color: var(--blue);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .tl-title { font-size: 1.05rem; font-weight: 600; color: #eef1ff; }
+    .tl-company {
+      font-size: 13px; color: var(--blue);
+      margin: 3px 0 10px; font-weight: 400;
+    }
+    .tl-desc { font-size: 14px; color: var(--muted); line-height: 1.8; }
+    .tl-desc li { margin-left: 1.2rem; margin-bottom: 4px; }
+
+    /* ── PROJETS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 14px;
+    }
+    .proj-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: border-color .2s, transform .2s;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .proj-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .proj-top { display: flex; align-items: flex-start; justify-content: space-between; }
+    .proj-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: var(--blue-dim);
+      border: 1px solid rgba(91,142,240,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .proj-tag {
+      font-family: var(--mono);
+      font-size: 10px; font-weight: 500;
+      color: var(--teal);
+      background: rgba(62,207,170,0.08);
+      border: 1px solid rgba(62,207,170,0.18);
+      padding: 3px 9px; border-radius: 4px;
+    }
+    .proj-card h3 { font-size: 15px; font-weight: 600; color: #eef1ff; }
+    .proj-card p { font-size: 13px; color: var(--muted); line-height: 1.7; flex: 1; }
+    .proj-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .proj-tools .tag { font-size: 10px; }
+
+    /* ── CONTACT ── */
+    #contact .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .contact-left h2 { margin-bottom: 1rem; }
+    .contact-left p { color: var(--muted); font-size: 15px; line-height: 1.8; }
+    .contact-links {
+      display: flex; flex-direction: column; gap: 10px;
+      margin-top: 2rem;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 12px;
+      padding: 0.85rem 1.1rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      transition: border-color .2s;
+    }
+    .contact-link:hover { border-color: var(--blue); }
+    .cl-icon {
+      width: 32px; height: 32px; border-radius: 7px;
+      background: var(--blue-dim);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+    .cl-label { font-size: 13px; font-weight: 500; color: var(--text); }
+    .cl-sub { font-size: 11px; color: var(--muted); margin-top: 1px; font-family: var(--mono); }
+
+    /* Availability card */
+    .avail-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+    }
+    .avail-card h3 { font-size: 15px; font-weight: 600; color: #eef1ff; margin-bottom: 0.75rem; }
+    .avail-card p { font-size: 14px; color: var(--muted); line-height: 1.75; }
+    .avail-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.2rem; }
+    .avail-tag {
+      padding: 5px 12px; border-radius: 6px;
+      font-size: 12px; font-weight: 500;
+      background: rgba(91,142,240,0.10);
+      border: 1px solid rgba(91,142,240,0.2);
+      color: var(--blue);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px; background: var(--border);
+      max-width: 920px; margin: 0 auto;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--subtle);
+      letter-spacing: 0.04em;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 700px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 0; }
+      .container { padding: 0 1.25rem; }
+      #contact .container { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">tj.dev</span>
+  <ul class="nav-links">
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#experience">Expérience</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ──── HERO ──── -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="pulse"></span>
+        Disponible pour de nouvelles opportunités
+      </div>
+
+      <h1>
+        Bonjour, je suis <span class="name">Timothée JEGO</span>
+        <span class="role">Technicien IT · Support & Déploiement</span>
+      </h1>
+
+      <p class="hero-desc">
+        Spécialisé dans le déploiement de postes de travail, l'assistance
+        utilisateurs et l'administration systèmes. Rigueur, réactivité
+        et sens du service sont mes maîtres-mots.
+      </p>
+
+      <div class="btn-row">
+        <a href="#contact" class="btn btn-primary">✉️ Me contacter</a>
+        <a href="#experience" class="btn btn-outline">Voir mon parcours →</a>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">3<span>+</span></div>
+          <div class="stat-label">Années d'expérience</div>
+        </div>
+        <div>
+          <div class="stat-num">350<span>+</span></div>
+          <div class="stat-label">Postes déployés</div>
+        </div>
+        <div>
+          <div class="stat-num">98<span>%</span></div>
+          <div class="stat-label">Taux de satisfaction</div>
+        </div>
+        <div>
+          <div class="stat-num">12<span>+</span></div>
+          <div class="stat-label">Outils & technologies</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ──── COMPÉTENCES ──── -->
+<section id="competences">
+  <div class="container">
+    <div class="sec-head">
+      <p class="sec-eye">Savoir-faire</p>
+      <h2>Compétences techniques</h2>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🖥️</div>
+        <h3>Systèmes d'exploitation</h3>
+        <div class="tags">
+          <span class="tag">Windows 10/11</span>
+          <span class="tag">Windows Server</span>
+          <span class="tag">Active Directory</span>
+          <span class="tag">Linux Debian</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🚀</div>
+        <h3>Déploiement & imagerie</h3>
+        <div class="tags">
+          <span class="tag">SCCM / Intune</span>
+          <span class="tag">MDT</span>
+          <span class="tag">Sysprep</span>
+          <span class="tag">WDS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <h3>Réseau & infrastructure</h3>
+        <div class="tags">
+          <span class="tag">TCP/IP</span>
+          <span class="tag">DNS / DHCP</span>
+          <span class="tag">VPN</span>
+          <span class="tag">VLAN</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎫</div>
+        <h3>Support & ticketing</h3>
+        <div class="tags">
+          <span class="tag">ServiceNow</span>
+          <span class="tag">GLPI</span>
+          <span class="tag">ITIL v4</span>
+          <span class="tag">RDP / Teams</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">☁️</div>
+        <h3>Cloud & bureautique</h3>
+        <div class="tags">
+          <span class="tag">Microsoft 365</span>
+          <span class="tag">Azure AD</span>
+          <span class="tag">Teams</span>
+          <span class="tag">OneDrive</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔒</div>
+        <h3>Sécurité</h3>
+        <div class="tags">
+          <span class="tag">BitLocker</span>
+          <span class="tag">GPO</span>
+          <span class="tag">MFA</span>
+          <span class="tag">Antivirus</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ──── EXPÉRIENCE ──── -->
+<section id="experience">
+  <div class="container">
+    <div class="sec-head">
+      <p class="sec-eye">Parcours</p>
+      <h2>Expérience professionnelle</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot current"></div>
+        <div class="tl-meta">
+          <span class="tl-date">2022 — Présent</span>
+          <span class="tl-badge">Poste actuel</span>
+        </div>
+        <p class="tl-title">Technicien IT N1 / N2</p>
+        <p class="tl-company">Entreprise XYZ — Rennes, France</p>
+        <ul class="tl-desc">
+          <li>Déploiement et configuration de postes Windows 10/11 (plus de 150 machines/an) via MDT et SCCM</li>
+          <li>Assistance utilisateurs en présentiel et à distance (Teams, RDP, TeamViewer)</li>
+          <li>Administration Active Directory : gestion des comptes, GPO et OU</li>
+          <li>Participation active à la migration du parc vers Microsoft 365</li>
+          <li>Rédaction de procédures techniques et formation des équipes</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-meta">
+          <span class="tl-date">2021 — 2022</span>
+        </div>
+        <p class="tl-title">Technicien Support Informatique</p>
+        <p class="tl-company">ESN ABC — Nantes, France</p>
+        <ul class="tl-desc">
+          <li>Traitement de tickets N1/N2 via GLPI (40+ tickets/semaine)</li>
+          <li>Installation, configuration et dépannage de postes, imprimantes et téléphones IP</li>
+          <li>Formation des utilisateurs aux outils bureautiques et aux bonnes pratiques de sécurité</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-meta">
+          <span class="tl-date">2019 — 2021</span>
+        </div>
+        <p class="tl-title">BTS SIO option SISR</p>
+        <p class="tl-company">Lycée Technique — Rennes</p>
+        <ul class="tl-desc">
+          <li>Brevet de Technicien Supérieur — Solutions d'Infrastructure, Systèmes et Réseaux</li>
+          <li>Mention Bien · Stage de 10 semaines en entreprise</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ──── PROJETS ──── -->
+<section id="projets">
+  <div class="container">
+    <div class="sec-head">
+      <p class="sec-eye">Réalisations</p>
+      <h2>Projets marquants</h2>
+    </div>
+
+    <div class="projects-grid">
+      <div class="proj-card">
+        <div class="proj-top">
+          <div class="proj-icon">🖥️</div>
+          <span class="proj-tag">Déploiement</span>
+        </div>
+        <h3>Migration parc Windows 11</h3>
+        <p>Déploiement de 200 postes en 3 semaines via MDT et SCCM. Coordination avec les métiers pour minimiser les interruptions.</p>
+        <div class="proj-tools">
+          <span class="tag">SCCM</span><span class="tag">MDT</span><span class="tag">Windows 11</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-top">
+          <div class="proj-icon">☁️</div>
+          <span class="proj-tag">Cloud</span>
+        </div>
+        <h3>Migration Microsoft 365</h3>
+        <p>Accompagnement de 80 utilisateurs lors du passage à M365 : création de comptes Azure AD, config Outlook et Teams.</p>
+        <div class="proj-tools">
+          <span class="tag">Azure AD</span><span class="tag">M365</span><span class="tag">Teams</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-top">
+          <div class="proj-icon">📋</div>
+          <span class="proj-tag">Outil</span>
+        </div>
+        <h3>Mise en place GLPI</h3>
+        <p>Installation et configuration du système de ticketing. Création des SLA, catégories et tableaux de bord pour le support N1/N2.</p>
+        <div class="proj-tools">
+          <span class="tag">GLPI</span><span class="tag">ITIL</span><span class="tag">SQL</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-top">
+          <div class="proj-icon">🔐</div>
+          <span class="proj-tag">Sécurité</span>
+        </div>
+        <h3>Déploiement MFA entreprise</h3>
+        <p>Activation et accompagnement de l'authentification multifacteur pour 120 comptes via Azure AD et Microsoft Authenticator.</p>
+        <div class="proj-tools">
+          <span class="tag">Azure AD</span><span class="tag">MFA</span><span class="tag">Intune</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ──── CONTACT ──── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-left">
+      <div class="sec-head">
+        <p class="sec-eye">Contact</p>
+        <h2>Travaillons ensemble</h2>
+      </div>
+      <p>Je suis ouvert aux opportunités en CDI, CDD ou missions en régie dans le domaine du support et de l'infrastructure IT, sur Rennes et ses environs.</p>
+
+      <div class="contact-links">
+        <a href="mailto:timothee.jego0902@email.com" class="contact-link">
+          <div class="cl-icon">✉️</div>
+          <div>
+            <div class="cl-label">Email</div>
+            <div class="cl-sub">timothee.jego0902@email.com</div>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/timoth%C3%A9e-jego-2a3286295" class="contact-link" target="_blank">
+          <div class="cl-icon">🔗</div>
+          <div>
+            <div class="cl-label">LinkedIn</div>
+            <div class="cl-sub">linkedin.com/in/timothée-jego</div>
+          </div>
+        </a>
+        <a href="https://github.com/timothee-jego" class="contact-link" target="_blank">
+          <div class="cl-icon">🐙</div>
+          <div>
+            <div class="cl-label">GitHub</div>
+            <div class="cl-sub">github.com/timothee-jego</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div class="avail-card">
+        <h3>📍 Localisation & disponibilité</h3>
+        <p>Basé à Rennes (35), disponible immédiatement. Mobilité possible sur la région Bretagne et en full remote.</p>
+        <div class="avail-tags">
+          <span class="avail-tag">CDI</span>
+          <span class="avail-tag">CDD</span>
+          <span class="avail-tag">Régie</span>
+          <span class="avail-tag">Full remote</span>
+          <span class="avail-tag">Bretagne</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Timothée JEGO · Construit avec HTML/CSS · Hébergé sur GitHub Pages
+</footer>
+
+</body>
+</html>
